@@ -33,12 +33,13 @@ public class Employee extends Worker {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Gender gender) {
-		this.setEmployeeId(employeeId);
-		this.setFirstName(firstName);
-		this.setLastName(lastName);
-		this.setIdNumber(idNumber);
-		this.setAddress(address);
+	public Employee(Worker worker, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Gender gender) {
+		this.setEmployeeId(worker.getEmployeeId());
+		this.setAddress(worker.getAddress());
+		this.setFirstName(worker.getFirstName());
+		this.setLastName(worker.getLastName());
+		this.setIdNumber(worker.getIdNumber());
+
 		this.yearJoined = yearJoined;
 		this.monthJoined = monthJoined;
 		this.dayJoined = dayJoined;
