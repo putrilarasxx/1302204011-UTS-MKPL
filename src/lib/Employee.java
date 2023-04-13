@@ -5,46 +5,45 @@ import java.time.Month;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Employee {
+public class Employee extends Worker{
 
-	private String employeeId;
-	private String firstName;
-	private String lastName;
-	private String idNumber;
-	private String address;
-	
+	private enum Gender {
+		LAKILAKI,
+		PEREMPUAN
+	}
+
 	private int yearJoined;
 	private int monthJoined;
 	private int dayJoined;
 	private int monthWorkingInYear;
 	
 	private boolean isForeigner;
-	private boolean gender; //true = Laki-laki, false = Perempuan
+	private Gender gender;
 	
 	private int monthlySalary;
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
-	private String spouseName;
-	private String spouseIdNumber;
+	private final Person spouse;
+	private final Person child;
 
-	private List<String> childNames;
-	private List<String> childIdNumbers;
+	private Object spouseIdNumber;
+
+	private int childIdNumbers() {
+		throw new UnsupportedOperationException("Not supported yet."); 
+	}
 	
-	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, boolean gender) {
-		this.employeeId = employeeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.idNumber = idNumber;
-		this.address = address;
+	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, int yearJoined, int monthJoined, int dayJoined, boolean isForeigner, Gender gender) {
+		this.setEmployeeId(employeeId);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setIdNumber(idNumber);
+		this.setAddress(address);
 		this.yearJoined = yearJoined;
 		this.monthJoined = monthJoined;
 		this.dayJoined = dayJoined;
 		this.isForeigner = isForeigner;
 		this.gender = gender;
-		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
 	}
 	
 	/**
@@ -75,18 +74,8 @@ public class Employee {
 		this.annualDeductible = deductible;
 	}
 	
-	public void setAdditionalIncome(int income) {	
+	public void setOtherMonthlyIncome(int income) {	
 		this.otherMonthlyIncome = income;
-	}
-	
-	public void setSpouse(String spouseName, String spouseIdNumber) {
-		this.spouseName = spouseName;
-		this.spouseIdNumber = idNumber;
-	}
-	
-	public void addChild(String childName, String childIdNumber) {
-		childNames.add(childName);
-		childIdNumbers.add(childIdNumber);
 	}
 	
 	public int getAnnualIncomeTax() {
@@ -100,6 +89,5 @@ public class Employee {
 			monthWorkingInYear = 12;
 		}
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
-	}
+		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers());
 }
